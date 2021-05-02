@@ -1,10 +1,12 @@
 using Application;
 using Application.Common.Interfaces;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Filters;
 using Web.Services;
 
 namespace Semicolon
@@ -40,17 +43,17 @@ namespace Semicolon
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
-            //services.AddControllersWithViews(options =>
-            //    options.Filters.Add<ApiExceptionFilterAttribute>())
-            //        .AddFluentValidation();
+            services.AddControllersWithViews(options =>
+                options.Filters.Add<ApiExceptionFilterAttribute>())
+                    .AddFluentValidation();
 
             services.AddRazorPages();
 
             // Customise default API behaviour
-            //services.Configure<ApiBehaviorOptions>(options =>
-            //{
-            //    options.SuppressModelStateInvalidFilter = true;
-            //});
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -111,7 +114,7 @@ namespace Semicolon
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
 
