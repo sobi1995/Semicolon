@@ -1,0 +1,2 @@
+﻿ dotnet ef migrations add "addContact" --project Infrastructure --startup-project semicolon --output-dir Persistence\Migrations
+ dotnet ef update database --project Infrastructure --startup-project semicolon --output-dir Persistence\Migrations

@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Common;
+using Domain.Entities;
 using IdentityServer4.EntityFramework.Options;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
@@ -33,9 +34,9 @@ namespace Infrastructure.Persistence
             _dateTime = dateTime;
         }
 
-        //public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Contact> Contact { get; set; }
 
-        //public DbSet<TodoList> TodoLists { get; set; }
+ 
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

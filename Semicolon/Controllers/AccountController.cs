@@ -8,7 +8,12 @@ namespace Web.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Index()
+
+        public AccountController()
+        {
+
+        }
+        public async Task<IActionResult> Login()
         {
             return View();
         }
