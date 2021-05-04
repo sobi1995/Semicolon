@@ -3,10 +3,8 @@
 *@
 @{
 }
-
-
-
-
+@using Application.Common.Dtos;
+@model ContactDto
 <section class="colorlib-contact" data-section="contact">
     <div class="colorlib-narrow-content">
         <div class="row">
@@ -47,18 +45,22 @@
             <div class="col-md-7 col-md-push-1">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1 col-md-pull-1 animate-box" data-animate-effect="fadeInRight">
-                        <form action="">
+                        <form action="/Contact/Create" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Name">
+                                <input type="text" class="form-control" asp-for="Name" placeholder="Name">
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Email">
+                                <input type="text" class="form-control" asp-for="Subject" placeholder="Email">
+                                <span asp-validation-for="Subject" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Subject">
+                                <input type="text" class="form-control" asp-for="Email" placeholder="Subject">
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <textarea name="" id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                                <textarea name="" id="message" cols="30" rows="7" asp-for="Message" class="form-control" placeholder="Message"></textarea>
+                                <span asp-validation-for="Message" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary btn-send-message" value="Send Message">
