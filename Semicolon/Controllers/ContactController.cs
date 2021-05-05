@@ -21,10 +21,10 @@ namespace Web.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create(CreateContactCommand command)
+        public async Task<ActionResult> Create(CreateContactCommand command)
         {
-         return await Mediator.Send(command);
-     
+          await Mediator.Send(command);
+            return Ok();
         }
     }
 }

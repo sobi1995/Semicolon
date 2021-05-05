@@ -17,7 +17,7 @@ namespace Application.Contact.Commands
         public string Email { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
-        //public ContactDto Contact { get; set; }
+   
     }
 
     public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand, int>
