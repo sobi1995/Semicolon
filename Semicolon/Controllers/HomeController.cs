@@ -38,5 +38,16 @@ namespace Semicolon.Controllers
         {
             return View();
         }
+
+        [Route("profile")]
+        public IActionResult Profile()
+        {
+            var vm = new
+            {
+                Claims = User.Claims,
+                Name = User.Identity.Name
+            };
+            return View(vm);
+        }
     }
 }
