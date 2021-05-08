@@ -19,6 +19,12 @@ namespace Web.Controllers
         }
 
 
+        public async Task<IActionResult> Profile()
+        {
+            _logger.Log(LogLevel.Information, "Test the logger", new Array[1]);
+
+            return Ok();
+        }
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateContactCommand command)
