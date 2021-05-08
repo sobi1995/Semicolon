@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
- 
+    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -49,14 +49,14 @@ namespace Web.Controllers
         //    return View();
         //}
 
+        [HttpGet]
+        public IActionResult Login(string returnUrl = "/")
+        {
+            return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
+        }
 
 
-        [Route("signin/{provider}")]
-        public IActionResult SignIn(string provider, string returnUrl = null) =>
-           Challenge(new AuthenticationProperties { RedirectUri = returnUrl ?? "/" }, provider);
 
-
-    
 
     }
 }
