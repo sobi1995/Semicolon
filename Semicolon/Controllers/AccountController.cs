@@ -1,61 +1,73 @@
-﻿using Infrastructure.Identity;
+﻿using Application.Common.Interfaces;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Octokit;
+using Octokit.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        public AccountController(SignInManager<ApplicationUser>  signInManager)
+        private readonly IIdentityService _identityService;
+        public string GitHubAvatar { get; set; }
+
+        public string GitHubLogin { get; set; }
+
+        public string GitHubName { get; set; }
+
+        public string GitHubUrl { get; set; }
+
+        public IReadOnlyList<Repository> Repositories { get; set; }
+        private readonly ILogger<ContactController> _logger;
+
+
+        public AccountController(ILogger<ContactController> logger, IIdentityService  identityService)
         {
-            _signInManager = signInManager;
+
+            _logger = logger;
+            _identityService = identityService;
         }
-        public async Task<IActionResult> Login()
-        {
-            return View();
-        }
-
-        //public async Task<IActionResult> GithubLogin()
-        //{
-        //    string redirectUrl = Url.Action("GithubResponse", "Account");
-        //    var properties = _signInManager.ConfigureExternalAuthenticationProperties("GithubResponse", redirectUrl);
-        //    return new ChallengeResult("GithubResponse", properties);
-        //}
-
-
-        //public async Task<IActionResult> GithubResponse()
-
-        //{
-        //    ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
-        //    if (info == null)
-        //        return RedirectToAction(nameof(Login));
-
-        //    var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false, true);
-
-
-        //    if (result.Succeeded)
-        //    {
+        public async Task<IActionResult> Login() => View();
 
 
 
-        //    }
-        //    return View();
-        //}
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = "/")
+        public IActionResult SignIn(string returnUrl = "/")
         {
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> RegisterAccount()
+        {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                _identityService.CreateUserAsync()
+                GitHubName = User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+                GitHubLogin = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
+                GitHubUrl = User.FindFirst(c => c.Type == "urn:github:url")?.Value;
+                GitHubAvatar = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
+
+                string accessToken = await HttpContext.GetTokenAsync("access_token");
+
+                var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
+                Repositories = await github.Repository.GetAllForCurrent();
+
+            }
+            return View();
+        }
 
 
     }
