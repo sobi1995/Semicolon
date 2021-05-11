@@ -16,15 +16,18 @@ namespace Infrastructure.Identity
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
         private readonly IAuthorizationService _authorizationService;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-            IAuthorizationService authorizationService)
+            IAuthorizationService authorizationService,
+             SignInManager<ApplicationUser>  signInManager)
         {
             _userManager = userManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
+            _signInManager = signInManager;
         }
 
         public async Task<string> GetUserNameAsync(string userId)
@@ -34,15 +37,16 @@ namespace Infrastructure.Identity
             return user.UserName;
         }
 
-        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string avatar)
         {
             var user = new ApplicationUser
             {
                 UserName = userName,
                 Email = userName,
+                Avatar=avatar
             };
 
-            var result = await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user);
 
             return (result.ToApplicationResult(), user.Id);
         }
@@ -82,6 +86,17 @@ namespace Infrastructure.Identity
             var result = await _userManager.DeleteAsync(user);
 
             return result.ToApplicationResult();
+        }
+
+        public async Task<bool> IsUserExistAsync(string userName)
+        {
+           
+            return await _userManager.FindByNameAsync(userName) != null ? true : false;
+        }
+
+        public async Task SignOutAsync()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

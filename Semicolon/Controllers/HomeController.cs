@@ -16,22 +16,18 @@ namespace Semicolon.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public string GitHubAvatar { get; set; }
-
-        public string GitHubLogin { get; set; }
-
-        public string GitHubName { get; set; }
-
-        public string GitHubUrl { get; set; }
-
-        public IReadOnlyList<Repository> Repositories { get; set; }
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
+       
+        public async Task<IActionResult> Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+             var   userName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
+                return RedirectToAction("",   userName );
+            }
             return View();
         }
 
@@ -51,20 +47,12 @@ namespace Semicolon.Controllers
             return View();
         }
 
-        [Route("profile")]
-        public async Task<IActionResult> Profile()
+        [Route("{userName}")]
+        public async Task<IActionResult> Profile(string userName)
         {
             if (User.Identity.IsAuthenticated)
             {
-                GitHubName = User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
-                GitHubLogin = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
-                GitHubUrl = User.FindFirst(c => c.Type == "urn:github:url")?.Value;
-                GitHubAvatar = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
-
-                string accessToken = await HttpContext.GetTokenAsync("access_token");
-
-                var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
-                Repositories = await github.Repository.GetAllForCurrent();
+           
 
             }
             return View( );

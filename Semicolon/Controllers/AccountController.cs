@@ -18,15 +18,7 @@ namespace Web.Controllers
     public class AccountController : BaseController
     {
         private readonly IIdentityService _identityService;
-        public string GitHubAvatar { get; set; }
-
-        public string GitHubLogin { get; set; }
-
-        public string GitHubName { get; set; }
-
-        public string GitHubUrl { get; set; }
-
-        public IReadOnlyList<Repository> Repositories { get; set; }
+      
         private readonly ILogger<ContactController> _logger;
 
 
@@ -49,24 +41,28 @@ namespace Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> RegisterAccount()
+        public async Task<IActionResult> ResponseGitHub()
         {
 
-            if (User.Identity.IsAuthenticated)
+             if (User.Identity.IsAuthenticated)
             {
-              
-                GitHubName = User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
-                GitHubLogin = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
-                GitHubUrl = User.FindFirst(c => c.Type == "urn:github:url")?.Value;
-                GitHubAvatar = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
+                var userName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
+                var avatar = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
 
-                string accessToken = await HttpContext.GetTokenAsync("access_token");
 
-                var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
-                Repositories = await github.Repository.GetAllForCurrent();
-
+                if (await _identityService.IsUserExistAsync(userName))
+                {
+                   await _identityService.CreateUserAsync(userName, avatar);
+                }
+                return RedirectToAction("", "",  userName  );
             }
             return View();
+        }
+        public async Task<IActionResult> SignOut()
+        {
+            await _identityService.SignOutAsync();
+
+            return RedirectToAction("", "");
         }
 
 
