@@ -1,6 +1,8 @@
 ﻿using Application.Common.Interfaces;
 using Application.Common.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -94,9 +96,6 @@ namespace Infrastructure.Identity
             return await _userManager.FindByNameAsync(userName) != null ? true : false;
         }
 
-        public async Task SignOutAsync()
-        {
-            await _signInManager.SignOutAsync();
-        }
+    
     }
 }

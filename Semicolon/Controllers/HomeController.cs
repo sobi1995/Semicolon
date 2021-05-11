@@ -23,11 +23,11 @@ namespace Semicolon.Controllers
        
         public async Task<IActionResult> Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-             var   userName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
-                return RedirectToAction("",   userName );
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            // var   userName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
+            //    return RedirectToAction("",   userName );
+            //}
             return View();
         }
 

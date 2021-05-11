@@ -19,7 +19,7 @@ namespace Application.Common.Interfaces
 
         Task<Result> DeleteUserAsync(string userId);
         Task<bool> IsUserExistAsync(string userName);
-        Task SignOutAsync();
+    
 
 
     }

@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -54,14 +55,14 @@ namespace Web.Controllers
                 {
                    await _identityService.CreateUserAsync(userName, avatar);
                 }
-                return RedirectToAction("", "",  userName  );
+                return RedirectToAction("",  userName);
             }
             return View();
         }
         public async Task<IActionResult> SignOut()
         {
-            await _identityService.SignOutAsync();
-
+      
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("", "");
         }
 
