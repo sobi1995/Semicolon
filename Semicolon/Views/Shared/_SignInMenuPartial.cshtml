@@ -1,15 +1,29 @@
 ﻿<aside id="colorlib-aside" role="complementary" class="border js-fullheight">
     <div class="text-center">
 
-  
 
+        @if (Context.Request.Path != "/")
+        {
+
+        <a href="/@(User.FindFirst(c => c.Type == "urn:github:login")?.Value)">
             <div class="author-img" style="background-image: url(@(User.FindFirst(c => c.Type == "urn:github:avatar")?.Value);)"></div>
+            </a>
+        <a href="/">
+            <div class="small-author-img" style=" background-image: url(/images/about.jpg)"></div>
+            </a>
+            }
+            else
+            {
+            <a href="/"><div class="author-img" style=" background-image: url(/images/about.jpg)"></div></a>
+            <a href="/@(User.FindFirst(c => c.Type == "urn:github:login")?.Value)">   <div class="small-author-img" style="background-image: url(@(User.FindFirst(c => c.Type == "urn:github:avatar")?.Value);)"></div></a>
+            }
+
             <h1 id="colorlib-logo"><a href="index.html"> @(User.FindFirst(c => c.Type == "urn:github:login")?.Value)</a></h1>
-    
 
 
 
-    </div>
+
+</div>
     <nav id="colorlib-main-menu" role="navigation" class="navbar">
         <div class="collapse">
             <ul>
