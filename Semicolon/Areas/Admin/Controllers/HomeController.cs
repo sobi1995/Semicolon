@@ -8,13 +8,10 @@ namespace Web.Areas.Admin.Controllers
 {
     public class HomeController : BaseAdminController
     {
-        public async Task<IActionResult> Test()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
-        public async Task<IActionResult> Tesst()
-        {
-            return View();
-        }
+      
     }
 }

@@ -8,7 +8,7 @@ namespace Web.Areas.User.Controllers
 {
     public class HomeController : UserBaseController
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
