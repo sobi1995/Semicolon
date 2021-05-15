@@ -1,5 +1,7 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Dtos;
+using Application.Common.Interfaces;
 using Application.Common.Models;
+using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,17 +21,19 @@ namespace Infrastructure.Identity
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
         private readonly IAuthorizationService _authorizationService;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+      
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
             IAuthorizationService authorizationService,
-             SignInManager<ApplicationUser>  signInManager)
+             SignInManager<ApplicationUser>  signInManager
+              )
         {
             _userManager = userManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
             _signInManager = signInManager;
+           
         }
 
         public async Task<string> GetUserNameAsync(string userId)
@@ -45,7 +49,8 @@ namespace Infrastructure.Identity
             {
                 UserName = userName,
                 Email = userName,
-                Avatar=avatar
+                Avatar=avatar   ,
+                Created=DateTime.Now
             };
 
             var result = await _userManager.CreateAsync(user);
@@ -96,6 +101,15 @@ namespace Infrastructure.Identity
             return await _userManager.FindByNameAsync(userName) != null ? true : false;
         }
 
-    
+        public async Task<IEnumerable< UserDto>> Get5lastUserRegisterOnSite()
+        {
+            return await _userManager.Users.OrderByDescending(x => x.Created).Take(5).Select(x => new UserDto() { 
+            
+            Created=x.Created,
+            Avatar=x.Avatar,
+            UserName   =x.UserName
+            
+            }).ToListAsync();
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Application.Common.Models;
+﻿using Application.Common.Dtos;
+
+using Application.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,8 @@ namespace Application.Common.Interfaces
 
         Task<Result> DeleteUserAsync(string userId);
         Task<bool> IsUserExistAsync(string userName);
-    
+        Task<IEnumerable< UserDto>> Get5lastUserRegisterOnSite();
+
 
 
     }

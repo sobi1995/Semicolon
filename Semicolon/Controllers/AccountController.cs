@@ -51,7 +51,7 @@ namespace Web.Controllers
                 var avatar = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
 
 
-                if (await _identityService.IsUserExistAsync(userName))
+                if (! await _identityService.IsUserExistAsync(userName))
                 {
                    await _identityService.CreateUserAsync(userName, avatar);
                 }
