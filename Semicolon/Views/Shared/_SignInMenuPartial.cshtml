@@ -18,7 +18,7 @@
             <a href="/@(User.FindFirst(c => c.Type == "urn:github:login")?.Value)">   <div class="small-author-img" style="background-image: url(@(User.FindFirst(c => c.Type == "urn:github:avatar")?.Value);)"></div></a>
             }
 
-            <h1 id="colorlib-logo"><a href="index.html"> @(User.FindFirst(c => c.Type == "urn:github:login")?.Value)</a></h1>
+            <h1 id="colorlib-logo"><a href="/user/home"> @(User.FindFirst(c => c.Type == "urn:github:login")?.Value)</a></h1>
 
 
 

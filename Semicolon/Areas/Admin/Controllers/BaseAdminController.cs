@@ -8,7 +8,7 @@ namespace Web.Areas.Admin.Controllers
 {
   
     [Area("admin")]
-    [Route("admin/[controller]/[action]")]
+ 
     public class BaseAdminController : Controller
     {
         

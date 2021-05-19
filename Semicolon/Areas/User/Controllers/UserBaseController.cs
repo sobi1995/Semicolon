@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Web.Areas.User.Controllers
 {
     [Area("user")]
-    [Route("user/[controller]/[action]")]
+  
     public class UserBaseController : Controller
     {
         
