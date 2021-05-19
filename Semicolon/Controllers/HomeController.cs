@@ -57,5 +57,14 @@ namespace Semicolon.Controllers
             }
             return View( );
         }
+
+
+
+        [Route("[controller]/[action]")]
+        public async Task<IActionResult> Error404()
+        {
+           
+            return View();
+        }
     }
 }

@@ -106,16 +106,19 @@ namespace Semicolon
                                 var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
                                 response.EnsureSuccessStatusCode();
 
-                               
+
                                 var json = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
 
                                 context.RunClaimActions(json.RootElement);
-                             
+
                             }
                         };
                     });
+
+
+
         }
-    
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -140,11 +143,19 @@ namespace Semicolon
                 app.UseSpaStaticFiles();
             }
 
-            //app.UseSwaggerUi3(settings =>
-            //{
-            //    settings.Path = "/api";
-            //    settings.DocumentPath = "/api/specification.json";
-            //});
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+
+                if (ctx.Response.StatusCode == 404 && !ctx.Response.HasStarted)
+                {
+                    //Re-execute the request so the user gets the error page
+                    string originalPath = ctx.Request.Path.Value;
+                    ctx.Items["originalPath"] = originalPath;
+                    ctx.Request.Path = "/home/error404";
+                    await next();
+                }
+            });
 
             app.UseRouting();
 
@@ -173,6 +184,9 @@ namespace Semicolon
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+
+    
 
             //app.UseSpa(spa =>
             //{

@@ -12,6 +12,9 @@ namespace Web.Areas.Admin.Controllers
         {
             return View();
         }
-      
+        public async Task<IActionResult> Error404()
+        {
+            return View();
+        }
     }
 }

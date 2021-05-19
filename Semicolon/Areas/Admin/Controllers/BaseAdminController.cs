@@ -8,7 +8,7 @@ namespace Web.Areas.Admin.Controllers
 {
   
     [Area("admin")]
- 
+
     public class BaseAdminController : Controller
     {
         
