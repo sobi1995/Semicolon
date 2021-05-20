@@ -51,15 +51,7 @@ namespace Semicolon.Controllers
             return View();
         }
 
-        [Route("{userName}")]
-        public async Task<IActionResult> Profile(string userName)
-        {
-
-            var user = await _identityService.IsUserExistAsync(userName);
-            if(!user)
-                return RedirectToAction(nameof(Error404));
-            return View( );
-        }
+        
 
 
 

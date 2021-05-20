@@ -31,15 +31,11 @@ namespace Web.Controllers
         }
         public async Task<IActionResult> Login() => View();
 
-
-
-
         [HttpGet]
         public IActionResult SignIn(string returnUrl = "/")
         {
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
-
 
         [HttpGet]
         public async Task<IActionResult> ResponseGitHub()
@@ -48,12 +44,12 @@ namespace Web.Controllers
              if (User.Identity.IsAuthenticated)
             {
                 var userName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
-                var avatar = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
-                var bio = User.FindFirst(c => c.Type == "urn:github:bio")?.Value;
+                var gitHubClient = new GitHubClient(new ProductHeaderValue("Semecolon"));
+                var user = await gitHubClient.User.Get(userName);
 
-                if (! await _identityService.IsUserExistAsync(userName))
+                if (!await _identityService.IsUserExistAsync(userName))
                 {
-                   await _identityService.CreateUserAsync(userName, avatar);
+                    await _identityService.CreateUserAsync(user.Id, userName, user.AvatarUrl);
                 }
                 return RedirectToAction("",  userName);
             }

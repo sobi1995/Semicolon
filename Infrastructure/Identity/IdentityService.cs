@@ -43,13 +43,14 @@ namespace Infrastructure.Identity
             return user.UserName;
         }
 
-        public async Task<(Result Result, int UserId)> CreateUserAsync(string userName, string avatar)
+        public async Task<(Result Result, int UserId)> CreateUserAsync(int userId,string userName, string avatar)
         {
             var user = new User
             {
+                Id=userId,
                 UserName = userName,
                 Email = userName,
-                Avatar=avatar   ,
+                
                 Created=DateTime.Now
             };
 
@@ -106,7 +107,7 @@ namespace Infrastructure.Identity
             return await _userManager.Users.OrderByDescending(x => x.Created).Take(5).Select(x => new UserDto() { 
             
             Created=x.Created,
-            Avatar=x.Avatar,
+            
             UserName   =x.UserName
             
             }).ToListAsync();

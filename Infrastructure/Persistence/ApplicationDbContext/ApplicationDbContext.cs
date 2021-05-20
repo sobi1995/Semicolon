@@ -35,10 +35,10 @@ namespace Infrastructure.Persistence
             _domainEventService = domainEventService;
             _dateTime = dateTime;
         }
-      
+
         public DbSet<Contact> Contact { get; set; }
 
- 
+
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -68,7 +68,9 @@ namespace Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+            builder.Entity<User>()
+                    .Property(et => et.Id)
+                    .ValueGeneratedNever();
             base.OnModelCreating(builder);
         }
 
