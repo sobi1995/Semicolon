@@ -37,8 +37,8 @@ namespace Infrastructure
             services.AddScoped<IDomainEventService, DomainEventService>();
 
             services
-                .AddDefaultIdentity<ApplicationUser>()
-                .AddRoles<IdentityRole>()
+                .AddDefaultIdentity<User>()
+                .AddRoles<Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             //services.AddIdentityServer()

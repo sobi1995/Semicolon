@@ -11,15 +11,15 @@ namespace Application.Common.Interfaces
 {
     public interface IIdentityService
     {
-        Task<string> GetUserNameAsync(string userId);
+        Task<string> GetUserNameAsync(int userId);
 
-        Task<bool> IsInRoleAsync(string userId, string role);
+        Task<bool> IsInRoleAsync(int userId, string role);
 
-        Task<bool> AuthorizeAsync(string userId, string policyName);
+        Task<bool> AuthorizeAsync(int userId, string policyName);
 
-        Task<(Result Result, string UserId)> CreateUserAsync(string userName,string avatar);
+        Task<(Result Result, int UserId)> CreateUserAsync(string userName, string avatar);
 
-        Task<Result> DeleteUserAsync(string userId);
+        Task<Result> DeleteUserAsync(int userId);
         Task<bool> IsUserExistAsync(string userName);
         Task<IEnumerable< UserDto>> Get5lastUserRegisterOnSite();
 

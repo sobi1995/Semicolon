@@ -49,7 +49,7 @@ namespace Web.Controllers
             {
                 var userName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
                 var avatar = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
-
+                var bio = User.FindFirst(c => c.Type == "urn:github:bio")?.Value;
 
                 if (! await _identityService.IsUserExistAsync(userName))
                 {

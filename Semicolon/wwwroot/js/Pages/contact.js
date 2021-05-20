@@ -1,8 +1,14 @@
 ﻿ 
 $(document).ready(function () {
- 
+
+	function clearForm() {
+		$('#form-contact').find("input[type=text] , textarea ").each(function () {
+			$(this).val('');
+		});
+	}
+
 	$("#btn-submit").click(function () {
-		debugger
+		 
 		var formData = $("#form-contact").serialize()
 		$.ajax({
 			type: "post",
@@ -10,7 +16,8 @@ $(document).ready(function () {
 			url: "/Contact/Create",
 			cache: false,
 			success: function (response) {
-				console.log(response);
+				alert("success")
+				clearForm();
 			}, error: function (xhr) {
 				 
 				var errors = getErrors(xhr.responseJSON.errors)

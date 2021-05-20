@@ -32,7 +32,7 @@ namespace Application.Common.Behaviours
             if (authorizeAttributes.Any())
             {
                 // Must be authenticated user
-                if (_currentUserService.UserId == null)
+                if (_currentUserService.UserId == 0)
                 {
                     throw new UnauthorizedAccessException();
                 }

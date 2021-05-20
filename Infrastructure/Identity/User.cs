@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Identity
 {
-    public class ApplicationUser : IdentityUser
+    public class User : IdentityUser<int>
     {
         public string Avatar { get; set; }
         public DateTime Created { get; set; }

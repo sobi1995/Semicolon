@@ -10,7 +10,7 @@ namespace Infrastructure.Persistence
 {
     public static class ApplicationDbContextSeed
     {
-        public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedDefaultUserAsync(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             //var administratorRole = new IdentityRole("Administrator");
 

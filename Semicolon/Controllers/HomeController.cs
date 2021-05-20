@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Application.Common.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Octokit;
@@ -15,10 +16,13 @@ namespace Semicolon.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IIdentityService _identityService;
+
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IIdentityService identityService)
         {
             _logger = logger;
+            _identityService = identityService;
         }
        
         public async Task<IActionResult> Index()
@@ -50,11 +54,10 @@ namespace Semicolon.Controllers
         [Route("{userName}")]
         public async Task<IActionResult> Profile(string userName)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-           
 
-            }
+            var user = await _identityService.IsUserExistAsync(userName);
+            if(!user)
+                return RedirectToAction(nameof(Error404));
             return View( );
         }
 
