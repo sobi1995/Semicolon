@@ -10,7 +10,8 @@ namespace Infrastructure.Identity
 {
     public class User : IdentityUser<int>
     {
-        
         public DateTime Created { get; set; }
+        public string Avatar { get; set; }
+        public string Bio { get; set; }
     }
 }

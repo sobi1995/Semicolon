@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Dtos;
+using Application.Common.Interfaces;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -49,7 +50,14 @@ namespace Web.Controllers
 
                 if (!await _identityService.IsUserExistAsync(userName))
                 {
-                    await _identityService.CreateUserAsync(user.Id, userName, user.AvatarUrl);
+                    await _identityService.CreateUserAsync(new CreateAccountWithGitHubDto(){
+                        Avatar_url=user.AvatarUrl,
+                        Email=user.Email,
+                        Id=user.Id,
+                        UserName=userName,
+                        Bio=user.Bio
+                
+                });
                 }
                 return RedirectToAction("",  userName);
             }

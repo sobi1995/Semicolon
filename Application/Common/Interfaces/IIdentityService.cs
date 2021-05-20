@@ -17,7 +17,7 @@ namespace Application.Common.Interfaces
 
         Task<bool> AuthorizeAsync(int userId, string policyName);
 
-        Task<(Result Result, int UserId)> CreateUserAsync(int userId,string userName, string avatar);
+        Task<(Result Result, int UserId)> CreateUserAsync(CreateAccountWithGitHubDto user);
 
         Task<Result> DeleteUserAsync(int userId);
         Task<bool> IsUserExistAsync(string userName);

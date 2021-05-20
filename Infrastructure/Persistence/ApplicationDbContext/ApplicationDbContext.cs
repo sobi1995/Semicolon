@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Infrastructure.EntityConfig;
 
 namespace Infrastructure.Persistence
 {
@@ -37,6 +38,8 @@ namespace Infrastructure.Persistence
         }
 
         public DbSet<Contact> Contact { get; set; }
+          public DbSet<Post> Post { get; set; }
+        public DbSet<Categories> Categories { get; set; }
 
 
 
@@ -67,6 +70,7 @@ namespace Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new CategoriesConfig());
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             builder.Entity<User>()
                     .Property(et => et.Id)

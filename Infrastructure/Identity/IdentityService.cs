@@ -43,15 +43,17 @@ namespace Infrastructure.Identity
             return user.UserName;
         }
 
-        public async Task<(Result Result, int UserId)> CreateUserAsync(int userId,string userName, string avatar)
+        public async Task<(Result Result, int UserId)> CreateUserAsync(CreateAccountWithGitHubDto createUser)
         {
             var user = new User
             {
-                Id=userId,
-                UserName = userName,
-                Email = userName,
+                Id= createUser.Id,
+                UserName =createUser.UserName,
+                Email = createUser.Email,
+                Created=DateTime.Now,
+                Avatar=createUser.Avatar_url,
+                Bio=createUser.Bio
                 
-                Created=DateTime.Now
             };
 
             var result = await _userManager.CreateAsync(user);

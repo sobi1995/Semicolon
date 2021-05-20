@@ -3,5 +3,6 @@
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
- 
- 
+
+@(await Component.InvokeAsync("UserSlider"))
+@(await Component.InvokeAsync("UserAboutMe"))
