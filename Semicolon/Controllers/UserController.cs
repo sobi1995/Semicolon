@@ -28,5 +28,15 @@ namespace Web.Controllers
                 return RedirectToAction("/home/error404");
             return View();
         }
+
+        [Route("[Action]/{userName}")]
+        public async Task<IActionResult> AboutMe(string userName)
+        {
+
+            var user = await _identityService.GetUser(userName);
+            if (user is null)
+                return RedirectToAction("/home/error404");
+            return View(user);
+        }
     }
 }

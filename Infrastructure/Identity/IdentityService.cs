@@ -114,5 +114,28 @@ namespace Infrastructure.Identity
             
             }).ToListAsync();
         }
+
+        public async Task< UserDto> GetUser(int userId)
+        {
+            return await _userManager.Users.Where(x=> x.Id==userId).Select(x=> new UserDto() {    
+            Id=x.Id,
+            Avatar=x.Avatar,
+            Created=x.Created,
+            UserName=x.UserName,
+            Bio=x.Bio
+            }).FirstAsync();
+        }
+
+        public async Task<UserDto> GetUser(string userName)
+        {
+            return await _userManager.Users.Where(x => x.UserName == userName).Select(x => new UserDto()
+            {
+                Id = x.Id,
+                Avatar = x.Avatar,
+                Created = x.Created,
+                UserName = x.UserName,
+                Bio = x.Bio
+            }).FirstOrDefaultAsync();
+        }
     }
 }

@@ -21,8 +21,9 @@ namespace Application.Common.Interfaces
 
         Task<Result> DeleteUserAsync(int userId);
         Task<bool> IsUserExistAsync(string userName);
-        Task<IEnumerable< UserDto>> Get5lastUserRegisterOnSite();
-
+        Task<IEnumerable<UserDto>> Get5lastUserRegisterOnSite();
+        Task<UserDto> GetUser(int userId);
+        Task<UserDto> GetUser(string     userName);
 
 
     }

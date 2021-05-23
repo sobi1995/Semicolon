@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Common.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,22 @@ namespace Semicolon.Views.User.Components.About
 {
     public class UserAboutMeViewComponent : ViewComponent
     {
-        public UserAboutMeViewComponent()
-        {
 
+        private readonly IIdentityService _identityService;
+        private readonly ICurrentUserService _currentUserService;
+
+        public UserAboutMeViewComponent(IIdentityService  identityService, ICurrentUserService  currentUserService)
+        {
+            _identityService = identityService;
+            _currentUserService = currentUserService;
         }
+   
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-
-            return await Task.FromResult((IViewComponentResult)View("UserAboutMeViewComponent"));
+            var user = await _identityService.GetUser(_currentUserService.UserId);
+            return await Task.FromResult((IViewComponentResult)View("UserAboutMeViewComponent", user));
         }
     }
 }

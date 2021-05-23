@@ -39,7 +39,7 @@ namespace Infrastructure.Persistence
 
         public DbSet<Contact> Contact { get; set; }
           public DbSet<Post> Post { get; set; }
-        public DbSet<Categories> Categories { get; set; }
+        //public DbSet<Categories> Categories { get; set; }
 
 
 
@@ -70,7 +70,7 @@ namespace Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new CategoriesConfig());
+            builder.ApplyConfiguration(new PostConfig());
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             builder.Entity<User>()
                     .Property(et => et.Id)
