@@ -9,16 +9,16 @@ shim: {
 'core': ['bootstrap', 'jquery'],
 },
 paths: {
-'core': 'assets/js/core',
-'jquery': 'assets/js/vendors/jquery-3.2.1.min',
-'bootstrap': 'assets/js/vendors/bootstrap.bundle.min',
-'sparkline': 'assets/js/vendors/jquery.sparkline.min',
-'selectize': 'assets/js/vendors/selectize.min',
-'tablesorter': 'assets/js/vendors/jquery.tablesorter.min',
-'vector-map': 'assets/js/vendors/jquery-jvectormap-2.0.3.min',
-'vector-map-de': 'assets/js/vendors/jquery-jvectormap-de-merc',
-'vector-map-world': 'assets/js/vendors/jquery-jvectormap-world-mill',
-'circle-progress': 'assets/js/vendors/circle-progress.min',
+'core': 'Admin/assets/js/core',
+'jquery': 'Admin/assets/js/vendors/jquery-3.2.1.min',
+'bootstrap': 'Admin/assets/js/vendors/bootstrap.bundle.min',
+'sparkline': 'Admin/assets/js/vendors/jquery.sparkline.min',
+'selectize': 'Admin/assets/js/vendors/selectize.min',
+'tablesorter': 'Admin/assets/js/vendors/jquery.tablesorter.min',
+'vector-map': 'Admin/assets/js/vendors/jquery-jvectormap-2.0.3.min',
+'vector-map-de': 'Admin/assets/js/vendors/jquery-jvectormap-de-merc',
+'vector-map-world': 'Admin/assets/js/vendors/jquery-jvectormap-world-mill',
+'circle-progress': 'Admin/assets/js/vendors/circle-progress.min',
 }
 });
 window.tabler = {
