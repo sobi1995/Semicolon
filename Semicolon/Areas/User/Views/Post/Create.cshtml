@@ -4,5 +4,35 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
-<input type="email" name="name" value="" />
 
+<div class="form-group">
+    <label class="form-label"></label>
+    <input type="text" class="form-control" name="example-text-input" placeholder="عنوان">
+</div>
+<div class="form-group">
+ 
+    <textarea class="form-control" name="example-textarea-input" style="height:500px" rows="6" placeholder="توضیحات"> </textarea>
+</div>
+<div class="form-group">
+    <label class="form-label">تگ ها</label>
+    <input type="text" class="form-control" id="input-tags" value="">
+</div>
+<a href="#" class="btn btn-primary">ثبت</a>
+<script>
+    require(['jquery', 'selectize'], function ($, selectize) {
+        $(document).ready(function () {
+            $('#input-tags').selectize({
+                delimiter: ',',
+                persist: false,
+                create: function (input) {
+                    return {
+                        value: input,
+                        text: input
+                    }
+                }
+            });
+
+
+        });
+    });
+</script>
