@@ -19,5 +19,7 @@
   <ItemGroup>
     <Folder Include="Contact\EventHandlers\" />
     <Folder Include="Contact\Queries\" />
+    <Folder Include="Post\EventHandlers\" />
+    <Folder Include="Post\Queries\" />
   </ItemGroup>
 </Project>

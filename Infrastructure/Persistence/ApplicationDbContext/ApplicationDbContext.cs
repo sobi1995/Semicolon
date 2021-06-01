@@ -39,7 +39,7 @@ namespace Infrastructure.Persistence
 
         public DbSet<Contact> Contact { get; set; }
           public DbSet<Post> Post { get; set; }
-        //public DbSet<Categories> Categories { get; set; }
+       public DbSet<Tags> Tags { get; set; }
 
 
 
