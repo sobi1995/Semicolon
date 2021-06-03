@@ -13,11 +13,10 @@ namespace Application.Post.Commands
         {
             RuleFor(v => v.Description)
                 .NotEmpty();
-            RuleFor(v => v.Tags)
-               .NotEmpty();
+          
             RuleFor(v => v.Title)
                .NotEmpty();
-          
+            RuleFor(x => x.Tags).Must(x => x == null || x.Count >= 3);
 
         }
     }

@@ -17,7 +17,7 @@
         <label class="form-label">تگ ها</label>
         <input type="text" class="form-control" id="input-tags" name="tags" value="">
     </div>
-    <button  id="btn-submit" class="btn btn-primary">ثبت</button>
+    <button  type="button" id="btn-submit" class="btn btn-primary">ثبت</button>
 </form>
 <script>
     require(['jquery', 'selectize'], function ($, selectize) {
@@ -34,18 +34,29 @@
             });
 
             $("#btn-submit").click(function () {
+               
+               
+                var data = getFormData($('form'));
                 debugger
-                var data = $('#post-form').serialize()
-
+                if (data.tags.length >=1) {
+                    data.tags = data.tags.split(',');
+                }
+                console.log(data)
                 $.ajax({
-                    url: "post/create",
+                    data:data,
+                    type:"Post",
+                    url: "create",
                     cache: false,
                     success: function (html) {
                         alert("yes");
+                    }, error: function (xhr) {
+
+                        var errors = getErrors(xhr.responseJSON.errors)
+                        alert(errors)
                     }
                 });
 
-          
+
             })
         });
    
