@@ -109,8 +109,10 @@ namespace Infrastructure.Identity
             return await _userManager.Users.OrderByDescending(x => x.Created).Take(5).Select(x => new UserDto() { 
             
             Created=x.Created,
-            
-            UserName   =x.UserName
+            Avatar=x.Avatar,
+            UserName   =x.UserName,
+            Bio=x.Bio,
+            Id=x.Id
             
             }).ToListAsync();
         }
