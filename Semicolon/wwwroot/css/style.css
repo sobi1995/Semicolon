@@ -941,14 +941,16 @@ body.offcanvas {
       color: #2c98f0; }
 
 .project {
-/*  background-size: cover;
+    /*  background-size: cover;
   background-position: center center;*/
-  background-repeat: no-repeat;
-  position: relative;
-  height: 300px;
-  width: 100%;
-  display: block;
-  margin-bottom: 30px; }
+    background-repeat: no-repeat;
+    position: relative;
+    height: 300px;
+    width: 100%;
+    display: block;
+    margin-bottom: 30px;
+    background-size: contain;
+}
   .project .desc {
     position: absolute;
     top: 0;
